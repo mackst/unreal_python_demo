@@ -28,14 +28,17 @@ class MyEditorUtility(unreal.GlobalEditorUtilityBase):
 
 class TestWidget(QtWidgets.QWidget):
     # 注册的句柄，窗口关闭时，需要取消注册
-    __TickHandle = None
+    # 尽量不要使用类变量，因为类变量会在类加载时初始化，
+    # unreal执行.py时类似会做reload()一样的操作
+    # 就会导致类变量重新初始化
+    # __TickHandle = None
+    
     # QUiLoader必须在QtWidgets.QApplication实例化前初始化
     # 不然会卡死unreal编辑器
     UILoader = QtUiTools.QUiLoader()
 
     # 这段代码是为了防止重复创建，让我们的窗口只会创建一个
-    # 无论这个脚本被执行了多少遍，需要可以创建多个窗口需要考虑
-    # 上面的注册句柄处理方案
+    # 无论这个脚本被执行了多少遍
     def __new__(cls, *args, **kwargs):
         tlws = QtWidgets.QApplication.instance().topLevelWidgets()
         for tlw in tlws:
