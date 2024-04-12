@@ -21,7 +21,7 @@ def add_menu_to_main_menu():
     
     # 检查菜单栏是否存在
     # 5.3.2 版本，无法找到，一直返回None
-    # 具体创建菜单可以砍下面的
+    # 具体创建菜单可以看下面的
     # add_menu_to_ContentBrowser_context_menu
     if not main_menu:
         unreal.log_error("Cannot find the main menu")
