@@ -140,6 +140,13 @@ def add_tool_to_user_toolbar():
         insert_position=unreal.ToolMenuInsert(section2, unreal.ToolMenuInsertType.FIRST)
     )
 
+    # 图标
+    # 内置图标
+    # https://github.com/EpicKiwi/unreal-engine-editor-icons
+    # 样式
+    # https://docs.unrealengine.com/4.26/en-US/API/Editor/EditorStyle/
+    my_tool_entry2.set_icon("EditorStyle", "Editor.AppIcon")
+
     my_tool_entry2.set_label("My Custom Tool 2")
     my_tool_entry2.set_tool_tip("My Custom Tool 2 Tool Tip")
     my_tool_entry2.set_string_command(unreal.ToolMenuStringCommandType.PYTHON, '', 'unreal.log("My Custom Tool 2")')
