@@ -16,7 +16,8 @@ def add_menu_to_main_menu():
 
     # 获取编辑器菜单栏
     # main_menu_path = "MainFrame.MainMenu"  # 这是最顶层的菜单栏
-    main_menu_path = "LevelEditor.ManiMenu" # 这个和上面的差不多，多了Actor等菜单
+    main_menu_path = "LevelEditor.MainMenu" # 这个和上面的差不多，多了Actor等菜单
+    # main_menu_path = "LevelEditor.MainMenu.Window" # 你还可以指定到某个菜单栏
     main_menu = tool_menus.find_menu(main_menu_path)
     
     # 检查菜单栏是否存在
@@ -26,9 +27,55 @@ def add_menu_to_main_menu():
     if not main_menu:
         unreal.log_error("Cannot find the main menu")
         return
+    
+    section_name = "MyMenu"
 
     # 创建一个子菜单
-    sub_menu = main_menu.add_sub_menu(main_menu.get_name(), "MyMenu", "My Menus", "My Tools")
+    sub_menu = main_menu.add_sub_menu(main_menu.get_name(), section_name, "My Menus", "My Tools", "My Custom Menus")
+
+    menu_section_name_1 = "MyMenu1"
+    # 华丽的分界线
+    sub_menu.add_section(
+        menu_section_name_1,
+        "华丽的分界线",
+        insert_type=unreal.ToolMenuInsertType.FIRST
+    )
+
+    # 菜单
+    menu_entry_1 = unreal.ToolMenuEntry(
+        name="Tool1",
+        type=unreal.MultiBlockType.MENU_ENTRY,
+        insert_position=unreal.ToolMenuInsert(menu_section_name_1)#, unreal.ToolMenuInsertType.FIRST)
+    )
+
+    menu_entry_1.set_label("My Custom Tool Menu 1")
+    menu_entry_1.set_tool_tip("My Custom Tool Menu 1 Tool Tip")
+    # 菜单要执行的py命令
+    menu_entry_1.set_string_command(unreal.ToolMenuStringCommandType.PYTHON, '', 'unreal.log("My Custom Tool Menu 1")')
+
+    sub_menu.add_menu_entry(menu_section_name_1, menu_entry_1)
+
+    # 华丽的分界线
+    menu_section_name_2 = "MyMenu2"
+    sub_menu.add_section(
+        menu_section_name_2,
+        "华丽的分界线 2",
+        insert_type=unreal.ToolMenuInsertType.FIRST
+    )
+
+    # 菜单
+    menu_entry_2 = unreal.ToolMenuEntry(
+        name="Tool2",
+        type=unreal.MultiBlockType.MENU_ENTRY,
+        insert_position=unreal.ToolMenuInsert(menu_section_name_2)#, unreal.ToolMenuInsertType.FIRST)
+    )
+
+    menu_entry_2.set_label("My Custom Tool Menu 2")
+    menu_entry_2.set_tool_tip("My Custom Tool Menu 2 Tool Tip")
+    # 菜单要执行的py命令
+    menu_entry_2.set_string_command(unreal.ToolMenuStringCommandType.PYTHON, '', 'unreal.log("My Custom Tool Menu 2")')
+
+    sub_menu.add_menu_entry(menu_section_name_2, menu_entry_2)
 
     tool_menus.refresh_all_widgets()
 
