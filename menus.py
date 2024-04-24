@@ -21,9 +21,6 @@ def add_menu_to_main_menu():
     main_menu = tool_menus.find_menu(main_menu_path)
     
     # 检查菜单栏是否存在
-    # 5.3.2 版本，无法找到，一直返回None
-    # 具体创建菜单可以看下面的
-    # add_menu_to_ContentBrowser_context_menu
     if not main_menu:
         unreal.log_error("Cannot find the main menu")
         return
@@ -127,8 +124,6 @@ def add_menu_to_ContentBrowser_context_menu():
 
         my_folder_menu = folder_menu.add_sub_menu(folder_menu.get_name(), my_menu_section, "MyFolderMenu", "My Custom Folder Menu 2")
         my_folder_menu.add_menu_entry(my_menu_section, my_folder_menu_entry)
-
-
 
     tool_menus.refresh_all_widgets()
 
